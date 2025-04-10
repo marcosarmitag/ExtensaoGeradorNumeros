@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Gerador de RG, CPF, CNPJ e Celular",
+  "version": "3.0",
+  "description": "Gera números de RG, CPF, CNPJ e Celular para testes de desenvolvimento.",
+  "action": {
+    "default_popup": "interface.html",
+    "default_icon": {
+      "16": "icone16.png",
+      "48": "icone48.png",
+      "128": "icone128.png"
+    }
+  },
+  "permissions": [
+    "storage",
+    "contextMenus",
+    "clipboardWrite",
+    "scripting",
+    "activeTab"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["contentScript.js"]
+    }
+  ]
+}
