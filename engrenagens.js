@@ -26,6 +26,7 @@ function getCookie(name) {
 function saveFormatOption() {
   const isFormatted = isFormattingEnabled();
   setCookie("formatOption", isFormatted, 365);
+  carregarHistorico();
 }
 
 // Função para carregar a opção de formatação salva no cookie
@@ -59,6 +60,8 @@ function generateCPF() {
   const cpf = `${n.join('')}${d1}${d2}`;
   const formattedCPF = isFormattingEnabled() ? formatCPF(cpf) : cpf;
   copyToClipboard(formattedCPF);
+  setCookie("h_cpf", cpf, 365);
+
   return formattedCPF;
 }
 
@@ -83,6 +86,8 @@ function generateCNPJ() {
   const cnpj = n.join('');
   const formattedCNPJ = isFormattingEnabled() ? formatCNPJ(cnpj) : cnpj;
   copyToClipboard(formattedCNPJ);
+  setCookie("h_cnpj", cnpj, 365);
+
   return formattedCNPJ;
 }
 
@@ -110,6 +115,8 @@ function generateRG() {
   const rgString = rg.join('');
   const formattedRG = isFormattingEnabled() ? formatRG(rgString) : rgString;
   copyToClipboard(formattedRG);
+  setCookie("h_rg", rgString, 365);
+
   return formattedRG;
 }
 
@@ -184,16 +191,46 @@ function generateCel() {
 
   const numeroCelular = isFormattingEnabled() ? formatCel(celNumber) : celNumber;
   copyToClipboard(numeroCelular);
+  setCookie("h_cel", celNumber, 365);
 
   return numeroCelular;
+}
+
+function carregarHistorico(){
+  const h_cpf = getCookie("h_cpf");
+  const h_cnpj = getCookie("h_cnpj");
+  const h_rg = getCookie("h_rg");
+  const h_cel = getCookie("h_cel");
+
+  if(h_cpf) {
+    document.getElementById('cpfResult').value = isFormattingEnabled() ? formatCPF(h_cpf) : h_cpf;
+  }
+
+  if(h_cnpj) {
+    document.getElementById('cnpjResult').value = isFormattingEnabled() ? formatCNPJ(h_cnpj) : h_cnpj;
+  }
+
+  if(h_rg) {
+    document.getElementById('rgResult').value = isFormattingEnabled() ? formatRG(h_rg) : h_rg;
+  }
+
+  if(h_cel) {
+    document.getElementById('celResult').value = isFormattingEnabled() ? formatCel(h_cel) : h_cel;
+  }
 }
 
 
 // Configurações iniciais e evento de mudança no switch
 document.addEventListener('DOMContentLoaded', () => {
-  loadFormatOption();
+  const h_cpf = getCookie("h_cpf");
+  const h_cnpj = getCookie("h_cnpj");
+  const h_rg = getCookie("h_rg");
+  const h_cel = getCookie("h_cel");
 
+  loadFormatOption();
   document.getElementById("formatOption").addEventListener("change", saveFormatOption);
+
+  carregarHistorico();
 
   document.getElementById('generateCPF').addEventListener('click', () => {
     document.getElementById('cpfResult').value = generateCPF();

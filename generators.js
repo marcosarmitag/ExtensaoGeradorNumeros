@@ -77,11 +77,7 @@ function generateCPF(pFormatar = false) {
     cel.push(cel);
     const celString = cel.join('');
     let celNumber = ddd + "9" + celString;
-  
-    const numeroCelular = pFormatar ? formatCel(celNumber) : celNumber;
-    copyToClipboard(numeroCelular);
-  
-    return numeroCelular;
+    return pFormatar ? formatCel(celNumber) : celNumber;
   }
 
   function formatCPF(cpf) {

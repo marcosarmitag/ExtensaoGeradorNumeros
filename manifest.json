@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Gerador de RG, CPF, CNPJ e Celular",
+  "name": "Gerador de Números V.3",
   "version": "3.0",
   "description": "Gera números de RG, CPF, CNPJ e Celular para testes de desenvolvimento.",
   "action": {
