@@ -8,20 +8,37 @@
 <body>
   <h2 style="color: white;">Gerador de Números V.3</h2>
 
-  <label for="formatOption" style="color: white;">Formatar</label>
-  <label class="switch">
-    <input type="checkbox" id="formatOption">
-    <span class="slider"></span>
-  </label>
+  <label for="formatOption" style="color: white;" title="Formata os números gerados.">Formatar</label>
+    <label class="switch">
+      <input type="checkbox" id="formatOption">
+      <span class="slider"></span>
+    </label>
 
-  <button id="generateCPF">Gerar CPF</button>
-  <input type="text" id="cpfResult" readonly />
-  <button id="generateCNPJ">Gerar CNPJ</button>
-  <input type="text" id="cnpjResult" readonly />
-  <button id="generateRG">Gerar RG</button>
-  <input type="text" id="rgResult" readonly />
-  <button id="generateCel">Gerar Celular</button>
-  <input type="text" id="celResult" readonly />
+  <label for="autoCopyOption" style="color: white;" title="Faz uma cópia automática do número gerado para área de transferência.">AutoCopy</label>
+    <label class="switch">
+      <input type="checkbox" id="autoCopyOption">
+      <span class="slider"></span>
+    </label>
+
+  <div class="input-wrapper">
+    <input id="cpfResult" type="text" readonly>
+    <button id="generateCPF" class="btnGerador">CPF</button>
+  </div>
+
+  <div class="input-wrapper">
+    <input  id="rgResult" type="text" readonly>
+    <button id="generateRG" class="btnGerador">RG</button>
+  </div>
+
+  <div class="input-wrapper">
+    <input  id="cnpjResult" type="text" readonly>
+    <button id="generateCNPJ" class="btnGerador">CNPJ</button>
+  </div>
+
+  <div class="input-wrapper">
+    <input  id="celResult" type="text" readonly>
+    <button id="generateCel" class="btnGerador">CEL</button>
+  </div>
 
 </br>
 </br>
