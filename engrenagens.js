@@ -16,10 +16,12 @@ function setCookie(name, value, days) {
 function getCookie(name) {
   const nameEQ = name + "=";
   const cookies = document.cookie.split(';');
+
   for (let i = 0; i < cookies.length; i++) {
     let c = cookies[i].trim();
     if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
   }
+
   return null;
 }
 
@@ -70,15 +72,8 @@ function generateCPF() {
   let d2 = n.reduce((acc, num, i) => acc + num * (11 - i), 0) + d1 * 2;
   d2 = d2 % 11 < 2 ? 0 : 11 - (d2 % 11);
   const cpf = `${n.join('')}${d1}${d2}`;
-  const formattedCPF = isFormattingEnabled() ? formatCPF(cpf) : cpf;
 
-  if(isAutoCopyEnabled()) {
-    copyToClipboard(formattedCPF);
-  }
-
-  setCookie("h_cpf", cpf, 365);
-
-  return formattedCPF;
+  return cpf;
 }
 
 function formatCPF(cpf) {
@@ -97,15 +92,7 @@ function generateCNPJ() {
   n.push(d2);
 
   const cnpj = n.join('');
-  const formattedCNPJ = isFormattingEnabled() ? formatCNPJ(cnpj) : cnpj;
-
-  if(isAutoCopyEnabled()) {
-    copyToClipboard(formattedCNPJ);
-  }
-
-  setCookie("h_cnpj", cnpj, 365);
-
-  return formattedCNPJ;
+  return cnpj;
 }
 
 function calculateCNPJVerifierDigit(numbers) {
@@ -127,14 +114,7 @@ function generateRG() {
   rg.push(verifierDigit);
 
   const rgString = rg.join('');
-  const formattedRG = isFormattingEnabled() ? formatRG(rgString) : rgString;
-
-  if(isAutoCopyEnabled()) {
-    copyToClipboard(formattedRG);
-  }
-
-  setCookie("h_rg", rgString, 365);
-  return formattedRG;
+  return rgString;
 }
 
 function calculateRGVerifierDigit(numbers) {
@@ -202,14 +182,7 @@ function generateCel() {
   const celString = cel.join('');
   let celNumber = ddd + "9" + celString;
 
-  const numeroCelular = isFormattingEnabled() ? formatCel(celNumber) : celNumber;
-
-  if(isAutoCopyEnabled()) {
-    copyToClipboard(numeroCelular);
-  }
-
-  setCookie("h_cel", celNumber, 365);
-  return numeroCelular;
+  return celNumber;
 }
 
 function carregarHistorico(){
@@ -250,35 +223,83 @@ document.addEventListener('DOMContentLoaded', () => {
   carregarHistorico();
 
   document.getElementById('generateCPF').addEventListener('click', () => {
-    document.getElementById('cpfResult').value = generateCPF();
+    const lInput = document.getElementById('cpfResult');
+    const lValor = generateCPF();
+
+    lInput.value = isFormattingEnabled() ? formatCPF(lValor) : lValor;
+    setCookie("h_cpf", lValor, 365);
+
+    if(isAutoCopyEnabled()) {
+      lInput.select();
+      copyToClipboard(lInput.value);
+    }
   });
 
   document.getElementById('generateCNPJ').addEventListener('click', () => {
-    document.getElementById('cnpjResult').value = generateCNPJ();
+    const lInput = document.getElementById('cnpjResult');
+    const lValor = generateCNPJ();
+
+    lInput.value = isFormattingEnabled() ? formatCNPJ(lValor) : lValor;
+    setCookie("h_cnpj", lValor, 365);
+
+    if(isAutoCopyEnabled()) {
+      lInput.select();
+      copyToClipboard(lInput.value);
+    }
   });
 
   document.getElementById('generateRG').addEventListener('click', () => {
-    document.getElementById('rgResult').value = generateRG();
+    const lInput = document.getElementById('rgResult');
+    const lValor = generateRG();
+
+    lInput.value = isFormattingEnabled() ? formatRG(lValor) : lValor;
+    setCookie("h_rg", lValor, 365);
+
+    if(isAutoCopyEnabled()) {
+      lInput.select();
+      copyToClipboard(lInput.value);
+    } 
   });
 
   document.getElementById('generateCel').addEventListener('click', () => {
-    document.getElementById('celResult').value = generateCel();
+    const lInput = document.getElementById('celResult');
+    const lValor = generateCel();
+
+    lInput.value = isFormattingEnabled() ? formatCel(lValor) : lValor;
+    setCookie("h_cel", lValor, 365);
+
+    if(isAutoCopyEnabled()) {
+      lInput.select();
+      copyToClipboard(lInput.value);
+    } 
   });
 
-  document.getElementById('cpfResult').addEventListener('click', () => {
-    document.getElementById('cpfResult').select();
+  document.getElementById('copyCPF').addEventListener('click', () => {
+    const lInput = document.getElementById('cpfResult');
+
+    lInput.select();
+    copyToClipboard(lInput.value);
   });
 
-  document.getElementById('cnpjResult').addEventListener('click', () => {
-    document.getElementById('cnpjResult').select();
+  document.getElementById('copyCNPJ').addEventListener('click', () => {
+    const lInput = document.getElementById('cnpjResult');
+
+    lInput.select();
+    copyToClipboard(lInput.value);
   });
 
-  document.getElementById('rgResult').addEventListener('click', () => {
-    document.getElementById('rgResult').select();
+  document.getElementById('copyRG').addEventListener('click', () => {
+    const lInput = document.getElementById('rgResult');
+
+    lInput.select();
+    copyToClipboard(lInput.value);
   });
 
-  document.getElementById('celResult').addEventListener('click', () => {
-    document.getElementById('celResult').select();
+  document.getElementById('copyCEL').addEventListener('click', () => {
+    const lInput = document.getElementById('celResult');
+
+    lInput.select();
+    copyToClipboard(lInput.value);
   });
 
 });
